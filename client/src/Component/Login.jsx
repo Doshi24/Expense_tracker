@@ -8,10 +8,20 @@ function Login(){
     const [username, setusername] = useState("")
     const [password, setpassword] = useState("")
 
-    const useNavigater = useNavigate();
+    const navigate = useNavigate();
+
+    const handleNavigateToRegister = () => {
+        setusername("")
+        setpassword("")
+        navigate("/")
+    }
 
     const handleLogin = async (e)=>{
         e.preventDefault()
+        if(!username.trim() || !password.trim()){
+            showToast("error", "Please fill all fields")
+            return
+        }
         try {
             const response = await fetch(`${url}/api/user/login`,{
                 method: "POST",
@@ -24,7 +34,9 @@ function Login(){
             if(data.status === "success"){
                 localStorage.setItem("token", data.data.token)
                 showToast("success",data.message || "USER Logined SUCCESSFULLY")
-                useNavigater('/ExpensesHome')
+                setusername("")
+                setpassword("")
+                navigate('/ExpensesHome')
             }else{
                 showToast("error", data.message || "SOMETHING WENT WRONG" )
             }
@@ -63,6 +75,15 @@ function Login(){
                     <button type="submit" className="bg-blue-600 text-white font-semibold p-3">
                         Login
                     </button>
+                    <div className="flex flex-col gap-6">
+                    <p
+                        type="button"
+                        onClick={handleNavigateToRegister}
+                        className="flex flex-col items-center justify-center bg-blue-600 text-white font-semibold"
+                    >
+                    Are you new user? Register Here
+                    </p>
+                    </div>
                 </form>
             </div>
         </div>

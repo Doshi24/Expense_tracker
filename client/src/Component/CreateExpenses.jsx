@@ -91,9 +91,10 @@ function CreateExpenses(){
 
 
     return(
-        <>
-        <h1 className="text-2xl font-bold mb-4">{editingId ? "Edit Expense" : "Add New Expense"}</h1>
-        <form onSubmit={handleSubmit} className="p-4 max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+  <div className="bg-gray-200 rounded-lg p-8 w-full max-w-md shadow-md">
+        <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">{editingId ? "Edit Expense" : "Add New Expense"}</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
     <label className="block mb-2 font-semibold">
         Expense Name
     </label> 
@@ -137,7 +138,8 @@ function CreateExpenses(){
         {editingId ? "Update Expense" : "Add Expense"}
       </button>
     </form>
-    </>
+    </div>
+    </div>
     )
 }
 

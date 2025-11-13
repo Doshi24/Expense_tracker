@@ -40,9 +40,11 @@ function ExpenseHistory(){
     }
 
     return(
-    <>
-    <h1 className="text-2xl font-bold mb-4 ">Expense History</h1>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
+    <h1 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+      Expense History
+    </h1>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl">
   {Array.isArray(expenses) && expenses.length > 0 ? (
     expenses.map((expense) => (
       <div
@@ -57,22 +59,25 @@ function ExpenseHistory(){
           Created on {new Date(expense.createdAt).toLocaleDateString()}
         </p>
 
-        <div className="absolute top-3 right-3 flex space-x-2">
-          <button
-            onClick={() => handleEdit(expense)}
-            className="text-blue-500 hover:text-blue-700 font-semibold text-sm"
-          >
-            Edit
-          </button>
-        </div>
-      </div>
-    ))
-  ) : (
-    <p className="text-gray-500">No expenses available.</p>
-  )}
-</div>
-    </>
-    )
+            <div className="absolute top-3 right-3 flex space-x-2">
+              <button
+                onClick={() => handleEdit(expense)}
+                className="text-blue-500 hover:text-blue-700 font-semibold text-sm"
+              >
+                Edit
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p className="text-gray-500 text-center w-full">
+          No expenses available.
+        </p>
+      )}
+    </div>
+  </div>
+);
+
 }
 
 export default ExpenseHistory

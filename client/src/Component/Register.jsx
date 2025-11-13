@@ -10,11 +10,22 @@ function Register(){
     const [username, setusername] =useState("")
     const [fullname, setfullname] =useState("")
 
-    const useNavigater = useNavigate();
+    const navigate = useNavigate();
 
+    const handleNavigateToLogin = () => {
+        setEmail("")
+        setpassword("")
+        setusername("")
+        setfullname("")
+        navigate("/login")
+    }
 
     const handleRegister = async (e)=>{
         e.preventDefault()
+        if(!email.trim() || !password.trim() || !username.trim() || !fullname.trim()){
+            showToast("error", "Please fill all fields")
+            return
+        }
         try {
             const response = await fetch(`${url}/api/user/register`,{
                 method: "POST",
@@ -26,7 +37,11 @@ function Register(){
             console.log(data)
             if(data.status === "success"){
                 showToast("success",data.message || "USER REGISTERED SUCCESSFULLY")
-                useNavigater('/ExpensesHome')
+                setEmail("")
+                setpassword("")
+                setusername("")
+                setfullname("")
+                navigate('/ExpensesHome')
             }else{
                 showToast("error", data.message || "SOMETHING WENT WRONG" )
             }
@@ -85,6 +100,15 @@ function Register(){
                     <button type="submit" className="bg-blue-600 text-white font-semibold p-3 rounded-lg hover:bg-blue-700 transition mt-2">
                         Register
                     </button>
+                    <div className="flex flex-col gap-6">
+                    <p
+                        type="button"
+                        onClick={handleNavigateToLogin}
+                        className="flex flex-col items-center justify-center bg-blue-600 text-white font-semibold"
+                    >
+                    Already have an account? Login Here
+                    </p>
+                    </div>  
                 </form>
             </div>
         </div>
